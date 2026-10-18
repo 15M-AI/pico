@@ -105,9 +105,9 @@ commit checkpoints to Git. If a session stops after a periodic checkpoint,
 restore `pico-0.1.0-v1.omf` to the output directory and rerun the script: it
 loads the weights and continues at the recorded step. Also restore the
 matching `corpus-manifest.json`; the runner refuses to resume when the saved
-corpus SHA-256 is missing or differs. AdamW moments are not stored in OMF and
-therefore restart from zero; resumed training is not bitwise equivalent to an
-uninterrupted run.
+corpus SHA-256 is missing or differs. Optimizer state and random-number-
+generator state are not stored in OMF, so resumed training is not bitwise
+equivalent to an uninterrupted run.
 
 ## Local CPU training
 
@@ -147,7 +147,7 @@ python train.py \
 ```
 
 The resume path validates the checkpoint configuration. Preserve the exact
-training corpus and settings across a resume. The AdamW optimizer moments and
+training corpus and settings across a resume. Optimizer state and
 random-number-generator state are not included in OMF, so a resumed run
 reinitializes those states.
 
