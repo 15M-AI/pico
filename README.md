@@ -6,7 +6,7 @@ recipe and cloud/local launch scripts. The shared model implementation, OMF
 writer/reader, and runtime live in the separate
 [`15M-AI/open-mind`](https://github.com/15M-AI/open-mind) repository.
 
-**All model checkpoints are written directly in OMF v0.1.** The training
+**All new model checkpoints are written directly in OMF v0.1.** The training
 scripts do not use GGUF or convert from another model format.
 
 > **Realistic expectations:** 15M parameters is a very small model. Training
@@ -105,16 +105,15 @@ commit checkpoints to Git. If a session stops after a periodic checkpoint,
 restore `pico-0.1.0-v1.omf` to the output directory and rerun the script: it
 loads the weights and continues at the recorded step. Also restore the
 matching `corpus-manifest.json`; the runner refuses to resume when the saved
-corpus SHA-256 is missing or differs. AdamW moments are not
-stored in OMF and therefore restart from zero; resumed training is not bitwise
-equivalent to an uninterrupted run.
+corpus SHA-256 is missing or differs. AdamW moments are not stored in OMF and
+therefore restart from zero; resumed training is not bitwise equivalent to an
+uninterrupted run.
 
 ## Local CPU training
 
-Use Python 3.10+, locally installed PyTorch and NumPy, and a UTF-8 corpus. Push
-the updated core repository before using these launch scripts; the first local
-run clones the public Open Mind core to `~/.cache/open-mind/core` and installs
-its local packages:
+Use Python 3.10+, locally installed PyTorch and NumPy, and a UTF-8 corpus. The
+updated core repository is already published; the first local run clones it to
+`~/.cache/open-mind/core` and installs its local packages:
 
 ```bash
 cd ~/Pico
@@ -165,6 +164,7 @@ reinitializes those states.
 | `MODEL_CARD.md` | Scope, evaluation status, limitations, and release checklist |
 | `DATASET_CARD_TEMPLATE.md` | Dataset rights and preparation checklist |
 | `DATASET_PROVENANCE_TEMPLATE.csv` | Machine-readable data source/license manifest |
+| `legacy/` | Preserved pre-OMF assistant prototype; not used by this recipe |
 
 Run recipe-only checks without training:
 
